@@ -1,3 +1,7 @@
+##############################################
+#  author: N.Sahoo <Niladri.Sahoo@cern.ch>                                                                                                                            
+#  NOTE: same GT for signal, jpsiphi and psipphi mc samples                                                                                                           
+############################################## 
 
 print "\n=> running on 2016 mc \n"
 
