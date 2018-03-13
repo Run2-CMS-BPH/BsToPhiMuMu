@@ -15,3 +15,25 @@ PSipPhi (40M requested)
 
 /BsToPsiPhi_BMuonFilter_SoftQCDnonD_TuneCUEP8M1_13TeV-pythia8-evtgen/RunIISummer16DR80Premix-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/AODSIM (35,821,893)
 
+Data Samples
+-------------
+
+DoubleMuon Datasets
+
+ # /DoubleMuonLowMass/Run2016B-23Sep2016-v3/AOD
+ # /DoubleMuonLowMass/Run2016C-23Sep2016-v1/AOD
+ # /DoubleMuonLowMass/Run2016D-23Sep2016-v1/AOD
+ # /DoubleMuonLowMass/Run2016E-23Sep2016-v1/AOD
+ # /DoubleMuonLowMass/Run2016F-23Sep2016-v1/AOD
+ # /DoubleMuonLowMass/Run2016G-23Sep2016-v1/AOD
+ # /DoubleMuonLowMass/Run2016H-PromptReco-v2/AOD
+
+ Charmonium Datasets
+
+ # /Charmonium/Run2016B-23Sep2016-v3/AOD
+ # /Charmonium/Run2016C-23Sep2016-v1/AOD
+ # /Charmonium/Run2016D-23Sep2016-v1/AOD
+ # /Charmonium/Run2016E-23Sep2016-v1/AOD
+ # /Charmonium/Run2016F-23Sep2016-v1/AOD
+ # /Charmonium/Run2016G-23Sep2016-v1/AOD
+ # /Charmonium/Run2016H-PromptReco-v2/AOD
