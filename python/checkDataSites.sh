@@ -4,15 +4,16 @@
 
 PD=Charmonium
 year=Run2016
-tag=07Aug17-v1
+tag=23Sep2016
 
 
-f=(C D E F G H)
+f=(B C D E F G)
 
 for i in ${f[@]}; do
     ##echo "f=$i"
-    echo "/$PD/$year$i-$tag/AOD"
+    echo "/$PD/$year$i-$tag*/AOD"
     ###dasgoclient --query="site dataset=/Charmonium/Run2016$i-07Aug17-v1/AOD"
-    dasgoclient --query="site dataset=/$PD/$year$i-$tag/AOD"
+    dasgoclient --query="dataset=/$PD/$year$i-$tag*/AOD"
+    dasgoclient --query="site dataset=/$PD/$year$i-$tag*/AOD"
 
 done
