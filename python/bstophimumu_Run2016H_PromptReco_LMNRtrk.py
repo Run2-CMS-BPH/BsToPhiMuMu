@@ -10,7 +10,7 @@ import FWCore.ParameterSet.Config as cms
 from bstophimumu_2016_cfi_may8 import process
 
 process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
-##process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
+#process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
@@ -25,12 +25,13 @@ process.source = cms.Source("PoolSource",
 #'/store/data/Run2016G/DoubleMuonLowMass/AOD/23Sep2016-v1/100000/001A518F-368C-E611-B0C9-0CC47A4C8E38.root')
 #'/store/data/Run2016E/DoubleMuonLowMass/AOD/23Sep2016-v1/100000/003C2808-EF93-E611-AD7E-0CC47A7C361E.root')
 #'/store/data/Run2016B/DoubleMuonLowMass/AOD/23Sep2016-v3/00000/001AD4E7-4498-E611-B144-002590E7DF2A.root')
-'/store/data/Run2016H/Charmonium/AOD/PromptReco-v2/000/281/207/00000/0042DCF9-6382-E611-ABFD-02163E0133B7.root')
+#'/store/data/Run2016H/Charmonium/AOD/PromptReco-v2/000/281/207/00000/0042DCF9-6382-E611-ABFD-02163E0133B7.root')
+'/store/data/Run2016H/DoubleMuonLowMass/AOD/PromptReco-v2/000/281/207/00000/085B3A26-6882-E611-A198-02163E0146A0.root')
     )
 
 #process.GlobalTag.globaltag = cms.string('FT53_V21A_AN6::All')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-##process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data') 
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data') 
 process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_Prompt_v16','') 
 
 
