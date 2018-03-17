@@ -7,7 +7,6 @@ process.MessageLogger.cerr.FwkReport.reportEvery = 1000
 process.options = cms.untracked.PSet( wantSummary = cms.untracked.bool(True) )
 process.options.allowUnscheduled = cms.untracked.bool(True)
 
-
 #process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 
 process.load('Configuration.StandardSequences.Services_cff')
@@ -53,13 +52,10 @@ process.load('PhysicsTools.PatAlgos.slimming.genParticles_cff')
 process.packedGenParticles.inputVertices = cms.InputTag('offlinePrimaryVertices')
 
 
-from PhysicsTools.PatAlgos.tools.coreTools import runOnData
-runOnData( process, outputModules = [] )
-
 process.ntuple = cms.EDAnalyzer(
     'BsToPhiMuMu',
 
-    OutputFileName = cms.string("BsToPhiMuMu_2016.root"),
+    #OutputFileName = cms.string("BsToPhiMuMu_test.root"),
     BuildBsToPhiMuMu = cms.untracked.bool(True), 
 
     MuonMass = cms.untracked.double(0.10565837), 
@@ -84,20 +80,14 @@ process.ntuple = cms.EDAnalyzer(
     TruthMatchMuonMaxR = cms.untracked.double(0.004), # [eta-phi]
     TruthMatchKaonMaxR = cms.untracked.double(0.3), # [eta-phi]
 
-    # check confdb for details
-    MuonMinPt = cms.untracked.double(4.0), # 3.0 [GeV]
+    # HLT-trigger cuts (for reference https://espace.cern.ch/cms-quarkonia/trigger-bph/SitePages/2012-LowMass.aspx)
+    MuonMinPt = cms.untracked.double(4.0), # 3.0 [GeV] ## par1
     MuonMaxEta = cms.untracked.double(2.2),  
     MuonMaxDcaBs = cms.untracked.double(2.0), # [cm]
 
     MuMuMinPt = cms.untracked.double(6.9),      # [GeV/c]
-##    MuMuMinInvMass = cms.untracked.double(1.0), # [GeV/c2]
-##    MuMuMaxInvMass = cms.untracked.double(4.8), # [GeV/c2]
- 
-    MuMuMinInvMass1 = cms.untracked.double(2.9), # [GeV/c2]
-    MuMuMinInvMass2 = cms.untracked.double(2.9), # [GeV/c2]   
-    MuMuMaxInvMass1 = cms.untracked.double(3.3), # [GeV/c2]
-    MuMuMaxInvMass2 = cms.untracked.double(3.3), # [GeV/c2]
-
+    MuMuMinInvMass = cms.untracked.double(2.9), # [GeV/c2] ## par2
+    MuMuMaxInvMass = cms.untracked.double(3.3), # [GeV/c2] ## par3
 
     MuMuMinVtxCl = cms.untracked.double(0.10), # 0.05
     MuMuMinLxySigmaBs = cms.untracked.double(3.0), 
@@ -105,7 +95,7 @@ process.ntuple = cms.EDAnalyzer(
     MuMuMinCosAlphaBs = cms.untracked.double(0.9),
 
     # pre-selection cuts 
-    TrkMinPt = cms.untracked.double(0.8), # 0.4 [GeV/c]
+    TrkMinPt = cms.untracked.double(0.4), # 0.4 [GeV/c]
     TrkMinDcaSigBs = cms.untracked.double(0.8), # 0.8 hadron DCA/sigma w/respect to BS (=>changed Max to Min)
     TrkMaxR = cms.untracked.double(110.0), # [cm] ==> size of tracker volume in radial direction
     TrkMaxZ = cms.untracked.double(280.0), # [cm] ==> size of tracker volume in Z direction
@@ -120,11 +110,11 @@ process.ntuple = cms.EDAnalyzer(
 
 )
 
-##from PhysicsTools.PatAlgos.tools.coreTools import runOnData
-##runOnData( process, outputModules = [] )
+from PhysicsTools.PatAlgos.tools.coreTools import runOnData
+runOnData( process, outputModules = [] )
 
-##process.TFileService = cms.Service("TFileService",
-##        fileName = cms.string('BsToPhiMuMu_2016.root'),
-##)
+process.TFileService = cms.Service("TFileService",
+        fileName = cms.string('BsToPhiMuMu_2016.root'),
+)
 
 process.p = cms.Path(process.ntuple)

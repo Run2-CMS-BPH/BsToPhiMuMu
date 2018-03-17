@@ -9,8 +9,8 @@ import FWCore.ParameterSet.Config as cms
 from bstophimumu_2016_cfi_PSI_trk_jul26 import process  
 ### input cfi changed to check with HLT_DoubleMu4_3_JPSi_Displaced_v* path
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
-##process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(5000) )
+#process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
