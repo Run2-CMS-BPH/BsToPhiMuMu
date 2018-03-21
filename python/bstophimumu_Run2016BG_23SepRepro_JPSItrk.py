@@ -1,21 +1,17 @@
-##############################################                                                          
-#  author: N.Sahoo <Niladri.Sahoo@cern.ch>                                                               
-#  NOTE: same GT for signal, jpsiphi and psipphi mc samples                                               
-############################################## 
 
-
-print "\n=> running on 2016 mc \n"
+print "\n=> running on 2016 data \n"
 
 #####################
 #  cmssw configs    #
 #####################
 
 import FWCore.ParameterSet.Config as cms
-####from bstophimumu_2016_cfi import process 
-from bstophimumu_2016_cfi_may8 import process 
+##from bstophimumu_2016_cfi_hltjpsitrk import process  
+from bstophimumu_2016_cfi_JPSI_trk_may16 import process
+### input cfi changed to check with HLT_DoubleMu4_3_JPSi_Displaced_v* path
 
-process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 #process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(-1) )
+process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(1000) )
 
 process.source = cms.Source("PoolSource",
         fileNames = cms.untracked.vstring(
@@ -25,15 +21,20 @@ process.source = cms.Source("PoolSource",
 #'/MuOniaParked/Run2012D-22Jan2013-v1/AOD')
 #'/store/data/Run2012D/MuOniaParked/AOD/22Jan2013-v1/10000/0009C032-C48D-E211-83FA-003048FEB956.root' )
 #'/store/data/Run2016B/Charmonium/AOD/PromptReco-v2/000/273/158/00000/14E579B3-271A-E611-911E-02163E013584.root')
-#'file:/afs/cern.ch/work/n/nsahoo/public/forDEEPAK/CMSSW_8_0_20/src/PYTHIA8_Bs2MuMuPhi_EtaPtFilter_CUEP8M1_13TeV_cff_STEP2.root')
-'/store/mc/RunIISummer16DR80Premix/BsToMuMuPhi_BMuonFilter_SoftQCDnonD_TuneCUEP8M1_13TeV-pythia8-evtgen/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/100000/004FAC41-C9CF-E611-9812-0242AC130004.root')
-##'/store/mc/RunIISummer16DR80Premix/BuToKMuMu_BMuonFilter_SoftQCDnonD_TuneCUEP8M1_13TeV-pythia8-evtgen/AODSIM/PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/100000/00498F8C-C2DB-E611-B4D6-001517FB21CC.root')
+#'/store/data/Run2016G/DoubleMuonLowMass/AOD/23Sep2016-v1/90000/F2D4D1D6-1597-E611-8963-0CC47A0AD63E.root')
+#'/store/data/Run2016B/DoubleMuonLowMass/AOD/23Sep2016-v3/00000/000D5D1A-3798-E611-982A-008CFA0647BC.root')
+#'/store/data/Run2016G/DoubleMuonLowMass/AOD/23Sep2016-v1/100000/001A518F-368C-E611-B0C9-0CC47A4C8E38.root')
+#'/store/data/Run2016E/DoubleMuonLowMass/AOD/23Sep2016-v1/100000/003C2808-EF93-E611-AD7E-0CC47A7C361E.root')
+#'/store/data/Run2016B/DoubleMuonLowMass/AOD/23Sep2016-v3/00000/001AD4E7-4498-E611-B144-002590E7DF2A.root')
+#'/store/data/Run2016H/Charmonium/AOD/PromptReco-v2/000/281/207/00000/0042DCF9-6382-E611-ABFD-02163E0133B7.root')
+#'/store/data/Run2016B/Charmonium/AOD/PromptReco-v2/000/273/158/00000/14E579B3-271A-E611-911E-02163E013584.root')
+'/store/data/Run2016G/Charmonium/AOD/23Sep2016-v1/100000/0006BA63-7097-E611-BBE8-001E67E71412.root')
     )
 
 #process.GlobalTag.globaltag = cms.string('FT53_V21A_AN6::All')
 from Configuration.AlCa.GlobalTag_condDBv2 import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, '80X_mcRun2_asymptotic_2016_TrancheIV_v6', '') 
-
+#process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:run2_data') 
+process.GlobalTag = GlobalTag(process.GlobalTag, '80X_dataRun2_2016SeptRepro_v7','') 
 
 
 #print "\nGlobalTag : FT53_V21A_AN6::All\n"
@@ -49,7 +50,8 @@ process.cleanMuonTriggerMatchHLT0 = cms.EDProducer(
     # PhysicsTools/PatAlgos/python/triggerLayer1/triggerProducer_cfi.py
     matched               = cms.InputTag('patTrigger'),
     #matchedCuts           = cms.string('path("HLT_DoubleMu3p5_LowMass_Displaced*",0,0)'),
-    matchedCuts           = cms.string('path("HLT_DoubleMu4_LowMassNonResonantTrk_Displaced*",0,0)'),
+##    matchedCuts           = cms.string('path("HLT_DoubleMu4_LowMassNonResonantTrk_Displaced*",0,0)'),
+    matchedCuts           = cms.string('path("HLT_DoubleMu4_JpsiTrk_Displaced*",0,0)'), ## HLT path changed
     maxDeltaR             = cms.double(0.1),
     # only one match per trigger object
     resolveAmbiguities    = cms.bool(True),
@@ -62,7 +64,8 @@ switchOnTriggerMatchEmbedding(process, triggerMatchers = ['cleanMuonTriggerMatch
 
 g_TriggerNames_LastFilterNames = [
     #('HLT_DoubleMu3p5_LowMass_Displaced',  'hltDisplacedmumuFilterDoubleMu3p5LowMass') 
-    ('HLT_DoubleMu4_LowMassNonResonantTrk_Displaced',  'hltLowMassNonResonantTkVertexFilter') 
+##    ('HLT_DoubleMu4_LowMassNonResonantTrk_Displaced',  'hltLowMassNonResonantTkVertexFilter') 
+    ('HLT_DoubleMu4_JpsiTrk_Displaced',  'hltDisplacedmumuFilterDoubleMu4Jpsi')   ## filter changed 
     ]
 
 g_TriggerNames = [i[0] for i in g_TriggerNames_LastFilterNames]
@@ -70,4 +73,3 @@ g_LastFilterNames = [i[1] for i in g_TriggerNames_LastFilterNames]
 
 process.ntuple.TriggerNames = cms.vstring(g_TriggerNames)
 process.ntuple.LastFilterNames = cms.vstring(g_LastFilterNames)
-process.ntuple.IsMonteCarlo = cms.untracked.bool(True)
