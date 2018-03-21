@@ -44,27 +44,4 @@ DoubleMuon Datasets
   /Charmonium/Run2016F-23Sep2016-v1/AOD (66,644)
   /Charmonium/Run2016G-23Sep2016-v1/AOD (241,279)
   /Charmonium/Run2016H-PromptReco-v2/AOD (278,382)
-=======
-Data Samples
--------------
 
-DoubleMuon Datasets
-
- # /DoubleMuonLowMass/Run2016B-23Sep2016-v3/AOD
- # /DoubleMuonLowMass/Run2016C-23Sep2016-v1/AOD
- # /DoubleMuonLowMass/Run2016D-23Sep2016-v1/AOD
- # /DoubleMuonLowMass/Run2016E-23Sep2016-v1/AOD
- # /DoubleMuonLowMass/Run2016F-23Sep2016-v1/AOD
- # /DoubleMuonLowMass/Run2016G-23Sep2016-v1/AOD
- # /DoubleMuonLowMass/Run2016H-PromptReco-v2/AOD
-
- Charmonium Datasets
-
- # /Charmonium/Run2016B-23Sep2016-v3/AOD
- # /Charmonium/Run2016C-23Sep2016-v1/AOD
- # /Charmonium/Run2016D-23Sep2016-v1/AOD
- # /Charmonium/Run2016E-23Sep2016-v1/AOD
- # /Charmonium/Run2016F-23Sep2016-v1/AOD
- # /Charmonium/Run2016G-23Sep2016-v1/AOD
- # /Charmonium/Run2016H-PromptReco-v2/AOD
->>>>>>> 34d0f532ee30436a40552d212ef02dcb30faea08
