@@ -78,7 +78,9 @@ int    Triggers       = 0;
 double  genBPt       = 0;
 double  genBEta      = 0;
 double  genBPhi      = 0;
-
+double  genBVtxX     = 0;
+double  genBVtxY     = 0;
+double  genBVtxZ     = 0;
 double  genMupPt     = 0;
 double  genMupEta    = 0;
 double  genMupPhi    = 0;
@@ -136,6 +138,9 @@ void ClearEvent()
   genBPt         = 0;
   genBEta        = 0;
   genBPhi        = 0;
+  genBVtxX       = 0;
+  genBVtxY       = 0;
+  genBVtxZ       = 0;
 
   genMupPt       = 0;
   genMupEta      = 0;
@@ -250,15 +255,12 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
    std::map<string,int> maptype;
    maptype.insert(std::pair<string,int>("data",1));
    maptype.insert(std::pair<string,int>("mc.lite",2));
-   maptype.insert(std::pair<string,int>("mc.hlt",998));
    maptype.insert(std::pair<string,int>("mc",999));
-   maptype.insert(std::pair<string,int>("mc.nogen",997));
+   maptype.insert(std::pair<string,int>("mc.nogen",998));
    switch (maptype[datatype]) {
    case 1:
      break;
    case 2:
-     tree_->Branch("genBPt"       , &genBPt       , "genBPt/D");
-     tree_->Branch("genBEta"      , &genBEta      , "genBEta/D");
      tree_->Branch("genBPhi"      , &genBPhi      , "genBPhi/D");
      tree_->Branch("genMupPt"     , &genMupPt     , "genMupPt/D");
      tree_->Branch("genMupEta"    , &genMupEta    , "genMupEta/D");
@@ -274,14 +276,14 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
      tree_->Branch("genQ2"        , &genQ2        , "genQ2/D");
      tree_->Branch("genCosThetaL" , &genCosThetaL , "genCosThetaL/D");
      tree_->Branch("genCosThetaK" , &genCosThetaK , "genCosThetaK/D");
-     tree_->Branch("genPhi"       , &genPhi       , "genPhi/D");
-     break;
-   case 998:
      break;
    case 999:
      tree_->Branch("genBPt"       , &genBPt       , "genBPt/D");
      tree_->Branch("genBEta"      , &genBEta      , "genBEta/D");
      tree_->Branch("genBPhi"      , &genBPhi      , "genBPhi/D");
+     tree_->Branch("genBVtxX"     , &genBVtxX     , "genBVtxX/D");
+     tree_->Branch("genBVtxY"     , &genBVtxY     , "genBVtxY/D");
+     tree_->Branch("genBVtxZ"     , &genBVtxZ     , "genBVtxZ/D");
      tree_->Branch("genMupPt"     , &genMupPt     , "genMupPt/D");
      tree_->Branch("genMupEta"    , &genMupEta    , "genMupEta/D");
      tree_->Branch("genMupPhi"    , &genMupPhi    , "genMupPhi/D");
@@ -305,7 +307,7 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
      tree_->Branch("genPhi"       , &genPhi       , "genPhi/D");
      break;
 
-   case 997:
+   case 998:
      break;
 
    default:
@@ -572,6 +574,9 @@ void SingleBsToPhiMuMuSelector::SaveGen()
   genBPt       = genB_4vec.Pt();
   genBEta      = genB_4vec.Eta();
   genBPhi      = genB_4vec.Phi();
+  genBVtxX     = 0;//Should be at PV?
+  genBVtxY     = 0;
+  genBVtxZ     = 0;
 
   genKpPt      = genKp_4vec.Pt();
   genKpEta      = genKp_4vec.Eta();
