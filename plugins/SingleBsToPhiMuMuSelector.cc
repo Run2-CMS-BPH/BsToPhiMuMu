@@ -1,7 +1,7 @@
 //----------------------------------------------
 // SELECTOR CODE FOR BSTOPHIMUMU ANALYSIS 
 // @author: N.Sahoo, NISER, BHUBANESWAR
-
+//@author: D.K.Sahoo, IIT, BHUBANESWAR
 // to do: add phi momentum info to the analyzer
 // 2017-07-11: added phi angle info 
 // 2018-03-02: (a) commented out the extra print statements, (b) added trigger efficiency print statements
@@ -86,6 +86,13 @@ double  genMumPt     = 0;
 double  genMumEta    = 0;
 double  genMumPhi    = 0;
 
+double  genKpPt     = 0;
+double  genKpEta    = 0;
+double  genKpPhi    = 0;
+double  genKmPt     = 0;
+double  genKmEta    = 0;
+double  genKmPhi    = 0;
+
 double  gendimuPt    = 0;
 double  gendimuEta   = 0;
 double  gendimuPhi   = 0;
@@ -136,7 +143,14 @@ void ClearEvent()
   genMumPt       = 0;
   genMumEta      = 0;
   genMumPhi      = 0;
-    
+
+  genKpPt     = 0;
+  genKpEta    = 0;
+  genKpPhi    = 0;
+  genKmPt     = 0;
+  genKmEta    = 0;
+  genKmPhi    = 0;    
+
   gendimuPt      = 0;
   gendimuEta     = 0;
   gendimuPhi     = 0;
@@ -238,6 +252,7 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
    maptype.insert(std::pair<string,int>("mc.lite",2));
    maptype.insert(std::pair<string,int>("mc.hlt",998));
    maptype.insert(std::pair<string,int>("mc",999));
+   maptype.insert(std::pair<string,int>("mc.nogen",997));
    switch (maptype[datatype]) {
    case 1:
      break;
@@ -264,7 +279,35 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
    case 998:
      break;
    case 999:
+     tree_->Branch("genBPt"       , &genBPt       , "genBPt/D");
+     tree_->Branch("genBEta"      , &genBEta      , "genBEta/D");
+     tree_->Branch("genBPhi"      , &genBPhi      , "genBPhi/D");
+     tree_->Branch("genMupPt"     , &genMupPt     , "genMupPt/D");
+     tree_->Branch("genMupEta"    , &genMupEta    , "genMupEta/D");
+     tree_->Branch("genMupPhi"    , &genMupPhi    , "genMupPhi/D");
+     tree_->Branch("genMumPt"     , &genMumPt     , "genMumPt/D");
+     tree_->Branch("genMumEta"    , &genMumEta    , "genMumEta/D");
+     tree_->Branch("genMumPhi"    , &genMumPhi    , "genMumPhi/D");
+
+     tree_->Branch("gendimuPt"    , &gendimuPt    , "gendimuPt/D");
+     tree_->Branch("gendimuEta"   , &gendimuEta   , "gendimuEta/D");
+     tree_->Branch("gendimuPhi"   , &gendimuPhi   , "gendimuPhi/D");
+
+     tree_->Branch("genKpPt"     , &genKpPt     , "genKpPt/D");
+     tree_->Branch("genKpEta"    , &genKpEta    , "genKpEta/D");
+     tree_->Branch("genKpPhi"    , &genKpPhi    , "genKpPhi/D");
+     tree_->Branch("genKmPt"     , &genKmPt     , "genKmPt/D");
+     tree_->Branch("genKmEta"    , &genKmEta    , "genKmEta/D");
+     tree_->Branch("genKmPhi"    , &genKmPhi    , "genKmPhi/D");
+     tree_->Branch("genQ2"        , &genQ2        , "genQ2/D");
+     tree_->Branch("genCosThetaL" , &genCosThetaL , "genCosThetaL/D");
+     tree_->Branch("genCosThetaK" , &genCosThetaK , "genCosThetaK/D");
+     tree_->Branch("genPhi"       , &genPhi       , "genPhi/D");
      break;
+
+   case 997:
+     break;
+
    default:
      printf("No compatible datatype found. Please check use following types...\n\t\t[");
      for (std::map<string,int>::iterator iType = maptype.begin(); iType != maptype.end(); iType++){
@@ -299,7 +342,6 @@ Bool_t SingleBsToPhiMuMuSelector::Process(Long64_t entry)
   int i = SelectB(cut); 
   if (i != -1) n_passBestB_++;
   if ( i != -1 && (datatype == "data" || istruebs->at(i)) ) {
-  //if ( i != -1 && (datatype == "data")) {
     printf("Entry#%lld, candidate#%d is selected.\n",entry,i);
     n_selected_ += 1; 
     SaveEvent(i);     
@@ -357,25 +399,53 @@ int SingleBsToPhiMuMuSelector::SelectB(string cut)
   int best_idx = -1; 
   double best_bvtxcl = 0.0; 
 
-  if (cut == "cut0") {
+  if (cut == "cutopt") {
+    for (int i = 0; i < nb; i++) {
+
+      if ( ! HasGoodDimuon(i) ) continue;
+      n_passMuonID_++;
+
+      best_idx = i;
+
+    }
+
+  } else  if (cut == "cut0") {
     for (int i = 0; i < nb; i++) {
 
       n_total_++;
 
       if ( ! HasGoodDimuon(i) ) continue; 
       n_passMuonID_++;
-      n_passSelCut_++;
 
       if (bvtxcl->at(i) > best_bvtxcl) {
 	best_bvtxcl = bvtxcl->at(i); 
+	n_passBestB_++;
 	best_idx = i; 
+      }
+    }
+
+  }else if (cut == "cutopt") {
+
+    for (int i = 0; i< nb; i++) {
+
+      if ( ! HasGoodDimuon(i) ) continue;
+      n_passMuonID_++;
+
+      if ( !( sqrt( ((kmpx->at(i))*(kmpx->at(i))) + ((kmpy->at(i))*(kmpy->at(i))) ) > 1.3 && sqrt( ((kppx->at(i))*(kppx->at(i))) + ((kppy->at(i))*(kppy->at(i))) ) > 1.3 && (kmtrkdcabs->at(i)/kmtrkdcabserr->at(i)) >0.8 && (kptrkdcabs->at(i)/kptrkdcabserr->at(i)) > 0.8 && (blsbs->at(i)/blsbserr->at(i)) > 8.5 && bcosalphabs2d->at(i) > 0.9992 && bvtxcl->at(i) > 0.04  )  )  continue;
+      n_passSelCut_++;
+
+      if (bvtxcl->at(i) > best_bvtxcl) {
+	best_bvtxcl = bvtxcl->at(i);
+	n_passBestB_++;
+        best_idx = i;
       }
     }
 
   }else if (cut == "nocut") {
     for (int i = 0; i < nb; i++) {
       if (bvtxcl->at(i) > best_bvtxcl) {
-	best_bvtxcl = bvtxcl->at(i); 
+	best_bvtxcl = bvtxcl->at(i);
+	n_passBestB_++; 
 	best_idx = i; 
       }
     }
@@ -395,20 +465,17 @@ bool SingleBsToPhiMuMuSelector::HasGoodDimuon(int i)
   if ( // new soft muon id
       mumisgoodmuon->at(i)
       && mupisgoodmuon->at(i) 
-      && mumntrklayers->at(i) > 5  // 2012 Data
-      && mupntrklayers->at(i) > 5  // 2012 Data 
-      // && mumntrkhits->at(i) > 10 
-      // && mupntrkhits->at(i) > 10 
-      && mumnpixlayers->at(i) > 0  // 1,0 (old,new)
-      && mupnpixlayers->at(i) > 0  // 1,0 (old,new) 
-      //&& mumnormchi2->at(i) < 1.8 
-      //&& mupnormchi2->at(i) < 1.8 
+      && mumntrklayers->at(i) > 5  
+      && mupntrklayers->at(i) > 5   
+      && mumnpixlayers->at(i) > 0  
+      && mupnpixlayers->at(i) > 0   
+
       && mumtrkqual->at(i)==1
       && muptrkqual->at(i)==1
-      && fabs(mumdxyvtx->at(i)) < 0.3  // 3,0.3 (old,new)
-      && fabs(mupdxyvtx->at(i)) < 0.3  // 3,0.3 (old,new)
-      && fabs(mumdzvtx->at(i)) < 20   // 30,20 (old,new) 
-      && fabs(mupdzvtx->at(i)) < 20   // 30,20 (old,new)
+      && fabs(mumdxyvtx->at(i)) < 0.3 
+      && fabs(mupdxyvtx->at(i)) < 0.3 
+      && fabs(mumdzvtx->at(i)) < 20    
+      && fabs(mupdzvtx->at(i)) < 20   
        ) return true; 
   return false; 
 }//}}}
@@ -505,6 +572,14 @@ void SingleBsToPhiMuMuSelector::SaveGen()
   genBPt       = genB_4vec.Pt();
   genBEta      = genB_4vec.Eta();
   genBPhi      = genB_4vec.Phi();
+
+  genKpPt      = genKp_4vec.Pt();
+  genKpEta      = genKp_4vec.Eta();
+  genKpPhi      = genKp_4vec.Phi();
+  genKmPt      = genKm_4vec.Pt();
+  genKmEta      = genKm_4vec.Eta();
+  genKmPhi      = genKm_4vec.Phi();
+
   genMupPt     = genMup_4vec.Pt();
   genMupEta    = genMup_4vec.Eta();
   genMupPhi    = genMup_4vec.Phi();
