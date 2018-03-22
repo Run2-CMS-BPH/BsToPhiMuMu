@@ -257,6 +257,7 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
    maptype.insert(std::pair<string,int>("mc.lite",2));
    maptype.insert(std::pair<string,int>("mc",999));
    maptype.insert(std::pair<string,int>("mc.nogen",998));
+   maptype.insert(std::pair<string,int>("mc.hlt",997));
    switch (maptype[datatype]) {
    case 1:
      break;
@@ -308,6 +309,9 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
      break;
 
    case 998:
+     break;
+
+   case 997:
      break;
 
    default:
