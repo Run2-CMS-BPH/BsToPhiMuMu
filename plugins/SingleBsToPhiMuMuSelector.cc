@@ -399,7 +399,7 @@ int SingleBsToPhiMuMuSelector::SelectB(string cut)
   int best_idx = -1; 
   double best_bvtxcl = 0.0; 
 
-  if (cut == "cutopt") {
+  if (cut == "cutfom") {
     for (int i = 0; i < nb; i++) {
 
       if ( ! HasGoodDimuon(i) ) continue;
