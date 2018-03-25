@@ -405,17 +405,8 @@ int SingleBsToPhiMuMuSelector::SelectB(string cut)
   int best_idx = -1; 
   double best_bvtxcl = 0.0; 
 
-  if (cut == "cutfom") {
-    for (int i = 0; i < nb; i++) {
 
-      if ( ! HasGoodDimuon(i) ) continue;
-      n_passMuonID_++;
-
-      best_idx = i;
-
-    }
-
-  } else  if (cut == "cut0") {
+  if (cut == "cut0") {
     for (int i = 0; i < nb; i++) {
 
       n_total_++;
