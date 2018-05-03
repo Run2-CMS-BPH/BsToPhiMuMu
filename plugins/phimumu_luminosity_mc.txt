@@ -1,0 +1,26 @@
+//Luminosity For PhiMuMu MC sample(Version 1)
+
+	     	 Number of events in AODSIM dataset
+MC Luminosity = --------------------------------------------------------------------
+   	      	Pyhtia P-P cross section * filter efficiency * Branching fraction
+
+
+No.of events in AODSIM dataset = 88202787
+Filter Efficiency = 1.16 * 10^-4
+Pythia P-P cross section = 5.679 * 10^10 pb
+Branching Fraction(B.F) for Bs->PhiMuMu = (7.6+-1.5) *10^-7
+B.F for Phi->K+K- = (48.9+-0.5) %
+
+Luminosity of BsToPhiMuMu MC version 1 = 36027.158 fb^-1
+
+
+
+//Luminosity for PhiMuMu MC version 2(extended version)
+
+No.of events in AODSIM dataset = 88285663
+Filter Efficiency = 1.16 * 10^-4
+Pythia P-P cross section = 5.679 * 10^10 pb
+B.F for Bs->PhiMuMu = (7.6+-1.5) * 10^-7
+B.F for Phi->K+K- = (48.9+-0.5)%
+
+Luminosity of BsToPhiMuMu version 2 = 36061.008 fb^-1
