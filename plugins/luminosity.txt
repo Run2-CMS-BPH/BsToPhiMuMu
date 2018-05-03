@@ -23,7 +23,7 @@ Pythia P-P cross section = 5.679 * 10^10 pb
 B.F for Bs->PhiMuMu = (7.6+-1.5) * 10^-7
 B.F for Phi->K+K- = (48.9+-0.5)%
 
-Luminosity of BsToPhiMuMu version 2 = 36061.008 fb^-1
+Luminosity of BsToPhiMuMu version 2 = 36061.009 fb^-1
 
 
 //Luminosity For Bs->JpsiPhi MC sample
