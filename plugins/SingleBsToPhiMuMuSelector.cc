@@ -75,6 +75,7 @@ double Phi            = 999;
 int    Triggers       = 0;
 
 // Branches for Generator level information
+double  genBpid      = 999;
 double  genBPt       = 0;
 double  genBEta      = 0;
 double  genBPhi      = 0;
@@ -135,6 +136,7 @@ void ClearEvent()
   Triggers       = 0;
 
   //mc
+  genBpid        = 999;
   genBPt         = 0;
   genBEta        = 0;
   genBPhi        = 0;
@@ -262,6 +264,7 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
    case 1:
      break;
    case 2:
+     tree_->Branch("genBpid"      , &genBpid      , "genBpid/D");
      tree_->Branch("genBPhi"      , &genBPhi      , "genBPhi/D");
      tree_->Branch("genMupPt"     , &genMupPt     , "genMupPt/D");
      tree_->Branch("genMupEta"    , &genMupEta    , "genMupEta/D");
@@ -279,6 +282,7 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
      tree_->Branch("genCosThetaK" , &genCosThetaK , "genCosThetaK/D");
      break;
    case 999:
+     tree_->Branch("genBpid"      , &genBpid      , "genBpid/D");
      tree_->Branch("genBPt"       , &genBPt       , "genBPt/D");
      tree_->Branch("genBEta"      , &genBEta      , "genBEta/D");
      tree_->Branch("genBPhi"      , &genBPhi      , "genBPhi/D");
@@ -566,6 +570,7 @@ void SingleBsToPhiMuMuSelector::SaveGen()
   genKm_4vec.SetXYZM(genkmpx,genkmpy,genkmpz,KAON_MASS);
   genKp_4vec.SetXYZM(genkppx,genkppy,genkppz,KAON_MASS);
 
+  genBpid      = genbpid;
   genBPt       = genB_4vec.Pt();
   genBEta      = genB_4vec.Eta();
   genBPhi      = genB_4vec.Phi();
@@ -573,10 +578,10 @@ void SingleBsToPhiMuMuSelector::SaveGen()
   genBVtxY     = 0;
   genBVtxZ     = 0;
 
-  genKpPt      = genKp_4vec.Pt();
+  genKpPt       = genKp_4vec.Pt();
   genKpEta      = genKp_4vec.Eta();
   genKpPhi      = genKp_4vec.Phi();
-  genKmPt      = genKm_4vec.Pt();
+  genKmPt       = genKm_4vec.Pt();
   genKmEta      = genKm_4vec.Eta();
   genKmPhi      = genKm_4vec.Phi();
 
@@ -674,8 +679,8 @@ int main(int argc, char** argv) {
   Printf("input file: '%s'", infile.Data());
   Printf("output file: '%s'", outfile.Data());
 
-  TChain *ch = new TChain("ntuple/tree"); 
-  ///TChain *ch = new TChain("tree"); 
+  ///TChain *ch = new TChain("ntuple/tree"); 
+  TChain *ch = new TChain("tree"); 
   ch->Add(infile.Data()); 
 
   char *j = get_option(argv, argv+argc, "-j");

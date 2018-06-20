@@ -116,6 +116,7 @@ public :
    vector<double>  *bctau;
    vector<double>  *bctauerr;
 
+   Double_t        genbpid;
    Double_t        genbpx;
    Double_t        genbpy;
    Double_t        genbpz;
@@ -235,6 +236,7 @@ public :
    TBranch        *b_bctau;   //!
    TBranch        *b_bctauerr;   //!
 
+   TBranch        *b_genbpid;   //!
    TBranch        *b_genbpx;   //!
    TBranch        *b_genbpy;   //!
    TBranch        *b_genbpz;   //!
@@ -489,7 +491,7 @@ void SingleBsToPhiMuMuSelector::Init(TTree *tree)
    fChain->SetBranchAddress("bctau", &bctau, &b_bctau);
    fChain->SetBranchAddress("bctauerr", &bctauerr, &b_bctauerr);
 
-
+   fChain->SetBranchAddress("genbpid", &genbpid, &b_genbpid);
    fChain->SetBranchAddress("genbpx", &genbpx, &b_genbpx);
    fChain->SetBranchAddress("genbpy", &genbpy, &b_genbpy);
    fChain->SetBranchAddress("genbpz", &genbpz, &b_genbpz);
