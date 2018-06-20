@@ -425,7 +425,7 @@ class BsToPhiMuMu : public edm::EDAnalyzer {
   //----------
   // For MC   
   //----------                                                                                                                                               
-  double genbpx, genbpy, genbpz;
+  double genbpx, genbpy, genbpz, genbpid;
   double genphipx, genphipy, genphipz;
   double genphivtxx, genphivtxy, genphivtxz;
 
@@ -573,7 +573,7 @@ BsToPhiMuMu::BsToPhiMuMu(const edm::ParameterSet& iConfig):
 
   //bbarmass(0), bbarmasserr(0),
 
-  genbpx(0), genbpy(0), genbpz(0),
+  genbpx(0), genbpy(0), genbpz(0), genbpid(0),
   genphipx(0), genphipy(0), genphipz(0), genphivtxx(0), genphivtxy(0), genphivtxz(0),
 
   genkpchg(0),
@@ -792,6 +792,7 @@ BsToPhiMuMu::beginJob()
     tree_->Branch("genbpx",      &genbpx     , "genbpx/D"    );
     tree_->Branch("genbpy",      &genbpy     , "genbpy/D"    );
     tree_->Branch("genbpz",      &genbpz     , "genbpz/D"    );
+    tree_->Branch("genbpid",     &genbpid    , "genbpid/D"    );
     tree_->Branch("genphipx",    &genphipx   , "genphipx/D"  );
     tree_->Branch("genphipy",    &genphipy   , "genphipy/D"  );
     tree_->Branch("genphipz",    &genphipz   , "genphipz/D"  );
@@ -947,7 +948,7 @@ BsToPhiMuMu::clearVariables(){
 
   if (IsMonteCarlo_) {
 
-    genbpx = 0;  genbpy = 0;  genbpz = 0;
+    genbpx = 0;  genbpy = 0;  genbpz = 0; genbpid = 0;
     genphipx = 0;  genphipy = 0;  genphipz = 0;
     genphivtxx = 0; genphivtxy = 0; genphivtxz = 0;
 
@@ -2097,6 +2098,7 @@ BsToPhiMuMu::saveGenInfo(const edm::Event& iEvent){
     genbpx = b.px();
     genbpy = b.py();
     genbpz = b.pz();
+    genbpid = b.pdgId();
 
     genphipx = phi.px();
     genphipy = phi.py();
