@@ -1,0 +1,48 @@
+===
+MC
+===
+Signal (160M requested)
+-----------------------
+
+/BsToMuMuPhi_BMuonFilter_SoftQCDnonD_TuneCUEP8M1_13TeV-pythia8-evtgen/RunIISummer16DR80Premix-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/AODSIM (88,202,787)
+/BsToMuMuPhi_BMuonFilter_SoftQCDnonD_TuneCUEP8M1_13TeV-pythia8-evtgen/RunIISummer16DR80Premix-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v1/AODSIM (88,314,228)
+
+JPSiPhi (80M requested)
+-----------------------
+
+/BsToJpsiPhi_BMuonFilter_SoftQCDnonD_TuneCUEP8M1_13TeV-pythia8-evtgen/RunIISummer16DR80Premix-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6_ext1-v2/AODSIM (98,217,712)
+
+PSipPhi (40M requested)
+-----------------------
+
+/BsToPsiPhi_BMuonFilter_SoftQCDnonD_TuneCUEP8M1_13TeV-pythia8-evtgen/RunIISummer16DR80Premix-PUMoriond17_80X_mcRun2_asymptotic_2016_TrancheIV_v6-v1/AODSIM (35,821,893)
+
+======
+Data
+======
+
+-------------------
+DoubleMuon Datasets
+------------------- 
+
+  /DoubleMuonLowMass/Run2016B-23Sep2016-v3/AOD (25,589,367)
+  /DoubleMuonLowMass/Run2016C-23Sep2016-v1/AOD (10,679,301)
+  /DoubleMuonLowMass/Run2016D-23Sep2016-v1/AOD (17,180,967)
+  /DoubleMuonLowMass/Run2016E-23Sep2016-v1/AOD (14,722,437)
+  /DoubleMuonLowMass/Run2016F-23Sep2016-v1/AOD (13,861,551)
+  /DoubleMuonLowMass/Run2016G-23Sep2016-v1/AOD (45,367,551)
+  /DoubleMuonLowMass/Run2016H-PromptReco-v2/AOD (52,263,314)
+
+---------------------
+ Charmonium Datasets
+---------------------
+
+  /Charmonium/Run2016B-23Sep2016-v3/AOD (149,892)
+  /Charmonium/Run2016C-23Sep2016-v1/AOD (56,258)
+  /Charmonium/Run2016D-23Sep2016-v1/AOD (94,766)
+  /Charmonium/Run2016E-23Sep2016-v1/AOD (78,932)
+  /Charmonium/Run2016F-23Sep2016-v1/AOD (66,644)
+  /Charmonium/Run2016G-23Sep2016-v1/AOD (241,279)
+  /Charmonium/Run2016H-PromptReco-v2/AOD (278,382)
+
+
