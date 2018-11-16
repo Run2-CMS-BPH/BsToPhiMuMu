@@ -1,0 +1,87 @@
+//Luminosity For PhiMuMu MC sample(Version 1)
+
+                 Number of events in AODSIM dataset
+MC Luminosity = --------------------------------------------------------------------
+                Pyhtia P-P cross section * filter efficiency * Branching fraction
+
+
+No.of events in AODSIM dataset = 88202787
+Filter Efficiency = 1.16 * 10^-4
+Pythia P-P cross section = 5.679 * 10^10 pb
+Branching Fraction(B.F) for Bs->PhiMuMu = (7.6+-1.5) *10^-7
+B.F for Phi->K+K- = (48.9+-0.5) %
+
+Luminosity of BsToPhiMuMu MC version 1 = 36027.158 fb^-1
+
+
+
+//Luminosity for PhiMuMu MC version 2(extended version)
+
+No.of events in AODSIM dataset = 88285663
+Filter Efficiency = 1.16 * 10^-4
+Pythia P-P cross section = 5.679 * 10^10 pb
+B.F for Bs->PhiMuMu = (7.6+-1.5) * 10^-7
+B.F for Phi->K+K- = (48.9+-0.5)%
+
+Luminosity of BsToPhiMuMu version 2 = 36061.009 fb^-1
+
+
+//Luminosity For Bs->JpsiPhi MC sample
+
+                 Number of events in AODSIM dataset
+MC Luminosity = --------------------------------------------------------------------
+                Pyhtia P-P cross section * filter efficiency * Branching fraction
+
+
+No.of events in AODSIM dataset = 98217712
+Filter Efficiency = 0.007
+Pythia P-P cross section = 7.94 * 10^8 pb
+Branching Fraction(B.F) for Bs->JpsiPhi = (1.07+-0.09) *10^-3
+B.F for Phi->K+K- = (48.9+-0.5) %
+B.F for J/Psi->Mu^+Mu^- = (5.961+-0.033)%
+
+Luminosity of BsToJpsiPhi MC sample  = 566.578 fb^-1
+
+
+//Luminosity For Bs->Psi'Phi MC sample
+
+                 Number of events in AODSIM dataset
+MC Luminosity = --------------------------------------------------------------------
+                Pyhtia P-P cross section * filter efficiency * Branching fraction
+
+
+No.of events in AODSIM dataset = 35821893
+Filter Efficiency = 1.68 * 10^-4
+Pythia P-P cross section = 5.679 * 10^10 pb
+Branching Fraction(B.F) for Bs->Psi'Phi = (5.4+-0.6) *10^-4
+B.F for Phi->K+K- = (48.9+-0.5) %
+B.F for J/Psi->Mu^+Mu^- = (7.9+-0.9) * 10^-3
+
+Luminosity of BsToPsi'Phi MC sample  = 1799.856 fb^-1
+
+
+//Luminosity calculation for Datasets
+
+//Link for calculating luminosity for datasets
+https://twiki.cern.ch/twiki/bin/viewauth/CMS/PdmV2016Analysis
+
+//command for calculating lumi for data
+brilcalc lumi -b "STABLE BEAMS" -i processedLumis.json  --normtag /afs/cern.ch/user/l/lumipro/public/normtag_file/normtag_DATACERT.json
+
+DoubleMuon Dataset (35.9 fb-1)
+/DoubleMuonLowMass/Run2016B-23Sep2016-v3/AOD (5.8 fb-1)
+/DoubleMuonLowMass/Run2016C-23Sep2016-v1/AOD (2.6 fb-1)
+/DoubleMuonLowMass/Run2016D-23Sep2016-v1/AOD (4.3 fb-1)
+/DoubleMuonLowMass/Run2016E-23Sep2016-v1/AOD (4.0 fb-1)
+/DoubleMuonLowMass/Run2016F-23Sep2016-v1/AOD (3.1 fb-1)
+/DoubleMuonLowMass/Run2016G-23Sep2016-v1/AOD (7.6 fb-1)
+/DoubleMuonLowMass/Run2016H-PromptReco-v2/AOD (8.5 fb-1)
+
+Charmonium Dataset (35.9 fb-1)
+/Charmonium/Run2016B-23Sep2016-v3/AOD (5.8 fb-1) 
+/Charmonium/Run2016C-23Sep2016-v1/AOD (2.6 fb-1)
+/Charmonium/Run2016D-23Sep2016-v1/AOD (4.3 fb-1)
+/Charmonium/Run2016E-23Sep2016-v1/AOD (4.0 fb-1)
+/Charmonium/Run2016F-23Sep2016-v1/AOD (3.1 fb-1)
+/Charmonium/Run2016G-23Sep2016-v1/AOD (7.6 fb-1)
+/Charmonium/Run2016H-PromptReco-v2/AOD (8.5 fb-1)
