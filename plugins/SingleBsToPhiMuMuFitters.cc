@@ -5,7 +5,7 @@
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 //
 //       Author: Niladri Sahoo <Niladri.Sahoo@cern.ch> 
-//       Sec. Author: Deepak Kumar Sahoo <dsahoo@cern.ch>
+//       Sec. Author: Deepak Kumar Sahoo <deepak.kumar.sahoo@cern.ch>
 //       Created:   [N/A] 
 // ------------------------------------------------------
 
@@ -104,27 +104,46 @@ const int nQ2Ranges = 9;
 
 char genQ2range[nQ2Ranges][128] = {"genQ2 <4.30 && genQ2 > 1.00",//Bin 0                                                                    
                                    "genQ2 < 8.68 && genQ2 > 4.30",//Bin 1                                                                      
-                                   "genQ2 <10.09 && genQ2 > 8.68",//Jpsi                                                                       
+                                   "genQ2 <10.09 && genQ2 > 8.68",//Jpsi (Bin 2)                                                         
                                    "genQ2 <12.86 && genQ2 >10.09",//Bin 3                                                                   
-                                   "genQ2 <14.18 && genQ2 >12.86",//Psi2S                                                                   
+                                   "genQ2 <14.18 && genQ2 >12.86",//Psi2S (Bin 4)                                                              
                                    "genQ2 <16.00 && genQ2 >14.18",//Bin 5                                                                   
                                    "genQ2 <19.00 && genQ2 >16.00",//Bin 6                                                                      
-                                   "genQ2 < 6.00 && genQ2 > 1.00",// Bin 7 Summary Bin 1                                            
-                                   "genQ2 <19.00 && genQ2 >1.00"};//Bin 8 Summary Bin 2     
+                                   "genQ2 < 6.00 && genQ2 > 1.00",// Bin 7 Summary Bin 1
+				   "(genQ2 <8.68 && genQ2 > 1.00) || (genQ2 > 10.09 && genQ2 < 12.86) || (genQ2 >14.18 && genQ2 <19.00)"};// Bin 7 Summary Bin 2   
+
 
 char q2range[nQ2Ranges][128] = {"Q2 <4.30 && Q2 > 1.00",//Bin 0                                                                        
 				"Q2 < 8.68 && Q2 > 4.30",//Bin 1                                                                      
-				"Q2 <10.09 && Q2 > 8.68",//Jpsi                                                                       
+				"Q2 <10.09 && Q2 > 8.68",//Jpsi (Bin 2)                                                                      
 				"Q2 <12.86 && Q2 >10.09",//Bin 3                                                                       
-				"Q2 <14.18 && Q2 >12.86",//Psi2S                                                                       
+				"Q2 <14.18 && Q2 >12.86",//Psi2S (Bin 4)                                                                     
 				"Q2 <16.00 && Q2 >14.18",//Bin 5                                                                       
 				"Q2 <19.00 && Q2 >16.00",//Bin 6                                                                      
 				"Q2 < 6.00 && Q2 > 1.00",// Bin 7 Summary Bin 1                                                        
-				"Q2 <19.00 && Q2 >1.00"};//Bin 8 Summary Bin 2  
+				"(Q2 <8.68 && Q2 > 1.00) || (Q2 > 10.09 && Q2 < 12.86) || (Q2 >14.18 && Q2 <19.00)"};//Bin 8 Summary Bin 2
 
+char q2rangeLatex[nQ2Ranges][32] = {" 1.00 < q^{2} < 4.30",
+                                    " 4.30 < q^{2} < 8.68",
+                                    " 8.68 < q^{2} <10.09",
+                                    "10.09 < q^{2} <12.86",
+                                    "12.86 < q^{2} <14.18",
+                                    "14.18 < q^{2} <16.00",
+                                    "16.00 < q^{2} <19.00",
+                                    " 1.00 < q^{2} < 6.00",
+				    " 1.00 < q^{2} <19.00"};
 
 double q2rangedn[nQ2Ranges] = {1.00 , 4.30 , 8.68  , 10.09 , 12.86 , 14.18 , 16.00 , 1.00 , 1.00};
 double q2rangeup[nQ2Ranges] = {4.30 , 8.68 , 10.09 , 12.86 , 14.18 , 16.00 , 19.00 , 6.00 , 19.00};
+char nTriggeredPath[3][32] = {"Triggers == 0", "Triggers == 1", "Triggers >= 1"};
+
+const double brangedn[6] = {4.76,4.76,5.38,5.18,4.76,5.38};
+const double brangeup[6] = {5.80,5.18,5.80,5.38,5.18,5.80};
+
+char phiMassWindow[3][512] ={"Phimass >0",
+			      "Phimass > 1.01 && Phimass < 1.03",
+			      "Phimass > 1.00 && Phimass < 1.04"
+                             };
 
 char mumuMassWindow[11][512] = { "Mumumass > 0",
 				 "(Mumumass > 3.096916+3.5*Mumumasserr || Mumumass < 3.096916-5.5*Mumumasserr) && (Mumumass > 3.686109+3.5*Mumumasserr || Mumumass < 3.686109-3.5*Mumumasserr)",
@@ -135,18 +154,17 @@ char mumuMassWindow[11][512] = { "Mumumass > 0",
 				 "Mumumass > 0",
 				 "Mumumass > 0",
 				 "Mumumass > 0",
-				 "abs(Bmass-Mumumass-2.182)>0.09 && abs(Bmass-Mumumass-1.593)>0.03",
-				 "abs(Bmass-Mumumass-2.182)<0.09 || abs(Bmass-Mumumass-1.593)<0.03",
-};//None, sig, bkg, #Jpsi, #Psi2S, CDF, anti-CDF, LHCb, anti-LHCb, 16Aug reOptimization, anti-16Aug-reOptimization, sel_v3p5, anti-sel_v3p5
-
-char nTriggeredPath[3][32] = {"Triggers == 0", "Triggers == 1", "Triggers >= 1"};
-
+				 "abs(Bmass-Mumumass-2.270)>0.170 && abs(Bmass-Mumumass-1.681)>0.080",
+                                 "abs(Bmass-Mumumass-2.270)>0.170 && abs(Bmass-Mumumass-1.681)>0.080"
+};//None,Signal,Background(Jpsi,Psip),none,none, none, none, none, none, optimization(Anti-radiation), optimization(Anti-radiation)
 
 double genFl    [nQ2Ranges]={0.759  , 0.644  , 0.517  , 0.446  , 0.393  , 0.365  , 0.340  , 0.746  , 0.526};
 double genFlerr [nQ2Ranges]={0.001024  , 0.000921  , 0.001565  , 0.001090  , 0.001569  , 0.001378  , 0.001378  , 0.000842  , 0.000472};
 double genA6  [nQ2Ranges]={-0.001  ,  0.001  , 0.003  , -0.001  , -0.000  , -0.004  , 0.003  , -0.001  , -0.000};
 double genA6err[nQ2Ranges]={0.001222  , 0.001166  , 0.002132  , 0.001558  , 0.002341  , 0.002111  , 0.002154  , 0.001012  , 0.000638};
 
+//////// CHECK ???
+/*
 std::string f_accXrecoEff_ord0[11] = { // default values
   "1.956257e+04*((1.012873e-04*exp(-0.5*((CosThetaL-(-5.149376e-02))/2.691253e-01)**2)+1.753291e-05*exp(-0.5*((CosThetaL-(-5.081329e-01))/1.020913e-01)**2)+3.139890e-05*exp(-0.5*((CosThetaL-(3.949585e-01))/1.798940e-01)**2))*(4.014027e-05+2.536507e-06*CosThetaK+8.510964e-05*CosThetaK**2-3.901914e-05*CosThetaK**3-1.417547e-04*CosThetaK**4+1.895490e-05*CosThetaK**5+6.712456e-05*CosThetaK**6))",
   "1.725772e+04*((-2.266294e-04*exp(-0.5*((CosThetaL-(9.934612e-02))/4.703605e-01)**2)+2.869562e-04*exp(-0.5*((CosThetaL-(1.864693e-01))/3.975143e-01)**2)+1.012292e-04*exp(-0.5*((CosThetaL-(-3.403547e-01))/3.092047e-01)**2))*(4.817225e-05-1.221187e-05*CosThetaK+7.967950e-05*CosThetaK**2-9.963951e-06*CosThetaK**3-1.175369e-04*CosThetaK**4+5.346328e-06*CosThetaK**5+4.290681e-05*CosThetaK**6))",
@@ -160,17 +178,20 @@ std::string f_accXrecoEff_ord0[11] = { // default values
   "7.117826e+03*((1.271731e-04-1.007771e-05*CosThetaL+3.140771e-05*CosThetaL**2+2.657901e-05*CosThetaL**3+3.761582e-05*CosThetaL**4-7.479025e-06*CosThetaL**5-3.801289e-05*CosThetaL**6)*(1.405696e-04-3.175964e-05*CosThetaK+4.895380e-06*CosThetaK**2-5.000845e-06*CosThetaK**3-1.694965e-05*CosThetaK**4+1.181410e-05*CosThetaK**5+1.087538e-05*CosThetaK**6))",
     "1.725772e+04*((-2.266294e-04*exp(-0.5*((CosThetaL-(9.934612e-02))/4.703605e-01)**2)+2.869562e-04*exp(-0.5*((CosThetaL-(1.864693e-01))/3.975143e-01)**2)+1.012292e-04*exp(-0.5*((CosThetaL-(-3.403547e-01))/3.092047e-01)**2))*(4.817225e-05-1.221187e-05*CosThetaK+7.967950e-05*CosThetaK**2-9.963951e-06*CosThetaK**3-1.175369e-04*CosThetaK**4+5.346328e-06*CosThetaK**5+4.290681e-05*CosThetaK**6))"
 };
+*/
 
-// Lumi = Nreco/(cross section*branch factor*filter efficiency), cross section is 49.59e9 [pb] for 8TeV and 48.44e9 [pb] for 7TeV.
-// BF_BuToK*MuMu = 1.07E-6, 1.12E-6(2014)
-// BF_BuToK*Jpsi = 1.43E-3, 1.44E-3(2014)
-// BF_BuToK*Psi2S = 6.7E-4, 6.7 E-4(2014)
-// BF_JpsToMuMu  = 5.96E-2
-// BF_Psi2sToMuMu= 6.70E-4
-// BF_K*ToK0Pi  = 2/3  (K* decays to Kpi)
-// BF_K0ToKs  = 1/2
-// BF_KsToPiPi = 2/3
+//////// MODIFY ????
 
+// Lumi = Nreco/(cross section*branch factor*filter efficiency.                                                                               
+// BF_BsToPhiMuMu = 7.6E-7 (2016)                                                                                                             
+// BF_BsToPhiJpsi = 1.07E-3 (2016)                                                                                                            
+// BF_BsToPhiPsi2S = 5.4E-4 (2016)                                                                                                            
+// BF_JpsiToMuMu  = 5.96E-2                                                                                                                   
+// BF_Psi2sToMuMu= 7.90E-3                                                                                                                    
+//BF_PhiToKK = 0.489      
+
+double datasetLumi[4] = {35.9,72088.167,566.578,1799.856};//data, BsToPhiMuMu(36027.158 + 36061.009), BuToPhiJpsi(566.578), BuToPhiPsi2S(1799.856)                                                                     
+//}}}                                                                          
 
 double readParam(int iBin, const char parName[], int iColumn, double defVal=0., double forceReturn=999.)
 {//{{{
@@ -214,6 +235,7 @@ double readParam(int iBin, const char parName[], int iColumn, double defVal=0., 
         return defVal;
     }
 }//}}}
+
 RooRealVar* readParam(const char parName[], const char wspacePathName[])
 {//{{{
     TFile *f_wspace = new TFile(wspacePathName);
@@ -231,6 +253,7 @@ RooRealVar* readParam(const char parName[], const char wspacePathName[])
         return 0;
     }
 }//}}}
+
 std::string readParam(int iBin, const char parName[], string defVal="", string forceReturn="defaultForceReturn")
 {//{{{
     // Remark: first value is at iColumn=0.
@@ -265,6 +288,7 @@ std::string readParam(int iBin, const char parName[], string defVal="", string f
         return defVal;
     }
 }//}}}
+
 void writeParam(int iBin, const char parName[], double *val, int nVal=2, bool overwrite=true)
 {//{{{
     if ( !overwrite ) return;
@@ -317,6 +341,7 @@ void writeParam(int iBin, const char parName[], double *val, int nVal=2, bool ov
     fclose(fi);
     remove(TString::Format("%s/fitParameters%d.txt.temp",odatacardpath.Data(),iBin));
 }//}}}
+
 void writeParam(int iBin, const char parName[], string instring, bool overwrite=true)
 {//{{{
     if ( !overwrite ) return;
@@ -358,6 +383,7 @@ void writeParam(int iBin, const char parName[], string instring, bool overwrite=
     remove(TString::Format("%s/fitParameters%d.txt.temp",odatacardpath.Data(),iBin));
     return;
 }//}}}
+
 void switchRedirectStdio(const char outfile[]="_stdio", const char mode[]="a", FILE *tty=stdout)
 {//{{{
     // This function works ONLY on unix-like system.
@@ -391,20 +417,37 @@ void switchRedirectStdio(const char outfile[]="_stdio", const char mode[]="a", F
 
 // Physically allowed ranges from AN2014_129_v14, p25.
 // Transformation rule comes from AN2014_129_v14, p28.
+
+////// need to modify a bit ..
 double toUnboundedFl(double fl){
-  return TMath::Tan((fl-0.5)*TMath::Pi());
+  return TMath::Tan((fl-0.5)*TMath::Pi());         ////// fl_ubd = tan(fl-0.5)*pi 
 }
+
 double toBoundedFl(double fl_ubd){
-  return 0.5+TMath::ATan(fl_ubd)/TMath::Pi();
+  return 0.5+TMath::ATan(fl_ubd)/TMath::Pi();     ///// fl = 0.5 + tan-1 (fl_ubd)/pi 
 }
+
+////// NOT SURE, MODIFY ????
+/*
 double toUnboundedA6(double a6, double fl){
-  return TMath::Tan(2./3.*a6*TMath::Pi()/(1-fl));
+  return TMath::Tan(2./3.*a6*TMath::Pi()/(1-fl));    
 }
+*/
+
+double toUnboundedA6(double a6, double fl){
+  return TMath::Tan(a6/2*(1-fl))*TMath::Pi();      ///// a6_ubd = tan(a6/2*(1-fl))*pi                                                                                   
+}
+
+/*
 double toBoundedA6(double a6_ubd, double fl_ubd){
-  return 3./2.*(0.5-TMath::ATan(fl_ubd)/TMath::Pi())*TMath::ATan(a6_ubd)/TMath::Pi();
+  return 3./2.*(0.5-TMath::ATan(fl_ubd)/TMath::Pi())*TMath::ATan(a6_ubd)/TMath::Pi();    
 }
+*/
 
-
+//// updated 
+double toBoundedA6(double a6_ubd, double fl_ubd){
+  return (0.5-TMath::ATan(fl_ubd)/TMath::Pi())*2*TMath::ATan(a6_ubd)/TMath::Pi() ;  /// a6 = (0.5-tan-1(fl_ubd)/pi)*2*(tan-1(a6_ubd)/pi)
+}
 
 
 bool printPdf2D(RooAbsPdf &pdf, RooRealVar &cosK, RooRealVar &cosL, const char oName[]="")
@@ -1450,8 +1493,8 @@ void createAcceptanceHist() // create acceptance histogram from UNFILTERED GEN.
 
   
   TChain *treein=new TChain("tree");
-  ////  treein->Add("./unfiltered_mc_genonly/sel_BsToPhiMuMu_mc_Genonly_ntuple_mc_genonly_s0.root"); // fixed input
-  treein->Add("/afs/cern.ch/work/d/dsahoo/public/forNiladri/sel_BsToPhiMuMu_mc_Genonly_ntuple_mc_genonly_s0.root"); // fixed input
+ treein->Add("/afs/cern.ch/work/d/dsahoo/scratch/Run2_BsToPhiMuMu_Updated/CMSSW_8_0_24/src/Bphysics/BsToPhiMuMu/plugins/unfiltered-genmc-ntuple/sel_BsToPhiMuMu_mc_Genonly_ntuple_mc_genonly_s0.root"); // fixed input
+
   if (treein == NULL) gSystem->Exit(0);
   treein->SetBranchStatus("*",0);
   treein->SetBranchStatus("genQ2"         , 1);
@@ -1828,6 +1871,7 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
 
   if (iBin == 3 || iBin == 5) effUpperBound = 2e-5;
   double BMass = 0;
+  double PhiMass = 0;
   double Mumumass = 0;
   double Mumumasserr = 0;
   double gQ2 = 0;
@@ -1846,6 +1890,7 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
 
   ch->SetBranchStatus("*",0);
   ch->SetBranchStatus("Bmass"         , 1);
+  ch->SetBranchStatus("Phimass"      , 1);
   ch->SetBranchStatus("Mumumass"      , 1);
   ch->SetBranchStatus("Mumumasserr"   , 1);
   ch->SetBranchStatus("genQ2"         , 1);
@@ -1854,6 +1899,7 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
   ch->SetBranchStatus("genMu*"        , 1);
   ch->SetBranchStatus("Triggers"      , 1);
   ch->SetBranchAddress("Bmass"        , &BMass);
+  ch->SetBranchAddress("Phimass"      , &PhiMass);
   ch->SetBranchAddress("Mumumass"     , &Mumumass);
   ch->SetBranchAddress("Mumumasserr"  , &Mumumasserr);
   ch->SetBranchAddress("genQ2"        , &gQ2);
@@ -1907,6 +1953,7 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
   h_nrecoK.SetYTitle("#Events/0.2");
   for (int entry = 0; entry < ch->GetEntries(); entry++) {
     ch->GetEntry(entry);
+    if (BMass < 5.1 || BMass > 5.6) continue;  ///////// added @NS 
     if (gQ2 > q2rangeup[2] && gQ2 < q2rangedn[2]) continue;//jpsi
     if (gQ2 > q2rangeup[4] && gQ2 < q2rangedn[4]) continue;//psi2s
     if (gQ2 > q2rangeup[iBin] || gQ2 < q2rangedn[iBin]) continue;
@@ -1915,8 +1962,8 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
       h2_nacc.Fill(gCosThetaL,gCosThetaK);
       h_naccL.Fill(gCosThetaL);
       h_naccK.Fill(gCosThetaK);
-      //no.of events at reco level
-      if ( triggers > 0 && BMass != 0 && ((Mumumass > 3.096916+3.5*Mumumasserr || Mumumass < 3.096916-5.5*Mumumasserr) && (Mumumass > 3.686109+3.5*Mumumasserr || Mumumass < 3.686109-3.5*Mumumasserr)) ){
+      //no.of events at reco level   /////// phimass cut added @NS
+      if ( triggers > 0 && BMass != 0 && (PhiMass > 1.01 && PhiMass < 1.03) && ((Mumumass > 3.096916+3.5*Mumumasserr || Mumumass < 3.096916-5.5*Mumumasserr) && (Mumumass > 3.686109+3.5*Mumumasserr || Mumumass < 3.686109-3.5*Mumumasserr)) ){
       ////////////      if ( triggers > 0 && BMass != 0 ){
       ////////////      if ( BMass != 0 ){
 	// isCDFcut: 1 for CDF . 2 for LHCb . 3 for 16Aug reOptimization . 4 for sel_v3p5
@@ -1934,7 +1981,7 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
 	  h2_nreco.Fill(CosThetaL,CosThetaK);
 	  h_nrecoL.Fill(CosThetaL);
 	  h_nrecoK.Fill(CosThetaK);
-	}else if (isCDFcut==4){
+	}else if (isCDFcut==4){         ////////// ???????
 	  //Antiradiation cut
 	  if( fabs(BMass-Mumumass-2.270)>0.170 && fabs(BMass-Mumumass-1.681)>0.08 ){   
 	    h2_nreco.Fill(CosThetaL,CosThetaK);
@@ -2504,7 +2551,14 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
     TString f_sigA_format;
     TString f_sigA_MK_format;
 
-    TString f_ang_format = "9/16*( (1/2*(1-fl)*(1-genCosThetaK*genCosThetaK)*(1+genCosThetaL*genCosThetaL)) + (2*fl*genCosThetaK*genCosThetaK*(1-genCosThetaL*genCosThetaL)) + (a6*(1-genCosThetaK*genCosThetaK)*genCosThetaL) )";// unbounded fl, afb, transformed as.
+    ///////// WRONG, MODIFY ?????
+    //////TString f_ang_format = "9/16*( (1/2*(1-fl)*(1-genCosThetaK*genCosThetaK)*(1+genCosThetaL*genCosThetaL)) + (2*fl*genCosThetaK*genCosThetaK*(1-genCosThetaL*genCosThetaL)) + (a6*(1-genCosThetaK*genCosThetaK)*genCosThetaL) )";// unbounded fl, afb, transformed as.
+
+    TString f_ang_format = "9/16*( (1/2*(0.5+TMath::ATan(fl)/TMath::Pi())*(1-CosThetaK**2)*(1+CosThetaL**2)) + (2*(0.5+TMath::ATan(fl)/TMath::Pi())*CosThetaK**2*(1-CosThetaL**2)) + ((0.5-TMath::ATan(fl)/TMath::Pi())*2*(TMath::ATan(a6)/TMath::Pi())*(1-CosThetaK**2)*CosThetaL) )";  // unbounded fl, afb, transformed as.
+
+    //// K* mu+ mu- 
+    ////TString f_ang_format = "9/16*((2/3*fs+4/3*as*2*sqrt(3*fs*(1-fs)*(0.5+TMath::ATan(fl)/TMath::Pi()))*CosThetaK)*(1-CosThetaL**2)+(1-fs)*(2*(0.5+TMath::ATan(fl)/TMath::Pi())*CosThetaK**2*(1-CosThetaL**2)+0.5*(0.5-TMath::ATan(fl)/TMath::Pi())*(1-CosThetaK**2)*(1+CosThetaL**2)+4/3*(3/2*(1/2-TMath::ATan(fl)/TMath::Pi())*TMath::ATan(afb)/TMath::Pi())*(1-CosThetaK**2)*CosThetaL))";// unbounded fl, afb, transformed as.
+
 
     TString f_accXrecoEff2_ord0 = out_accXrecoEff2_ord0;
     TString f_accXrecoEff2_format, f_accXrecoEff2_L0, f_accXrecoEff2_L2, f_accXrecoEff2_L3, f_accXrecoEff2_L4, f_accXrecoEff2_L6;
@@ -2514,7 +2568,13 @@ std::string accXrecoEff2(int iBin, bool keepParam = true) // acceptance*reconstr
     f_accXrecoEff2_L4 = "(recK0L4+recK1L4*CosThetaK+recK2L4*(3*CosThetaK**2-1)/2+recK3L4*(5*CosThetaK**3-3*CosThetaK)/2)*CosThetaL**4";
     f_accXrecoEff2_L6 = "(recK0L6+recK1L6*CosThetaK+recK2L6*(3*CosThetaK**2-1)/2+recK3L6*(5*CosThetaK**3-3*CosThetaK)/2)*CosThetaL**6";
 
-    TString f_ang_MK_format = "3/4*((2/3*fs+4/3*as*CosThetaK)+(1-fs)*(2*(1/2+TMath::ATan(fl)/TMath::Pi())*CosThetaK**2+(1/2-TMath::ATan(fl)/TMath::Pi())*(1-CosThetaK**2)))";// unbounded fl, integrated over cosThetaL
+    /////// MODIFY ???
+    /////////TString f_ang_MK_format = "3/4*((2/3*fs+4/3*as*CosThetaK)+(1-fs)*(2*(1/2+TMath::ATan(fl)/TMath::Pi())*CosThetaK**2+(1/2-TMath::ATan(fl)/TMath::Pi())*(1-CosThetaK**2)))";// unbounded fl, integrated over cosThetaL
+    /////TString f_ang_MK_format = "(27/32)*TMath::Pi()*(1-CosThetaK**2+(0.5+TMath::ATan(fl)/TMath::Pi())*((7/3)*CosThetaK**2-1))";// unbounded fl, integrated over cosThetaL
+
+    //// taken from paper 
+    TString f_ang_MK_format = "(3/4*(0.5-TMath::ATan(fl)/TMath::Pi())*(1-CosThetaK**2)+3/2*(0.5+TMath::ATan(fl)/TMath::Pi())*CosThetaK**2)";// unbounded fl, integrated over cosThetaL
+
     TString f_accXrecoEff2_MK_format = TString::Format("(%e%+e*CosThetaK%+e*CosThetaK**2%+e*CosThetaK**3%+e*CosThetaK**4%+e*CosThetaK**5%+e*CosThetaK**6)",
 						       f_effK_ord0->GetParameter(0),\
 						       f_effK_ord0->GetParameter(1),\
@@ -2575,12 +2635,14 @@ void angular2D_bin(int iBin, const char outfile[] = "angular2D")
   // Read data
   ch->SetBranchStatus("*",0);
   ch->SetBranchStatus("Bmass"         , 1);
+  ch->SetBranchStatus("Phimass"       , 1);
   ch->SetBranchStatus("Mumumass"      , 1);
   ch->SetBranchStatus("Mumumasserr"   , 1);
   ch->SetBranchStatus("CosTheta*"     , 1);
   ch->SetBranchStatus("Q2"            , 1);
   ch->SetBranchStatus("Triggers"      , 1);
-  RooRealVar Bmass("Bmass","M_{K^{*}#Mu#Mu}",5.1,5.6);
+  RooRealVar Bmass("Bmass","m_{#phi#mu^{+}#mu^{-}}", 5.1, 5.6);
+  RooRealVar Phimass("Phimass","m_{#phi(1020)}", 0., 2.);
   RooRealVar CosThetaK("CosThetaK"     , "cos#theta_{K}"       , -1. , 1.   ) ;
   RooRealVar CosThetaL("CosThetaL"     , "cos#theta_{L}"       , -1. , 1.   ) ;
   RooRealVar Mumumass("Mumumass","M^{#mu#mu}",0.,10.);
@@ -2594,13 +2656,16 @@ void angular2D_bin(int iBin, const char outfile[] = "angular2D")
   RooRealVar *fl = 0;
   RooRealVar *a6 = 0;
   if (wspace_sigA){
+    printf("@@@@ opening root file \n");
     f_sigA = (RooGenericPdf*)wspace_sigA->pdf("f_sigA");
     fl = (RooRealVar*)wspace_sigA->var("fl");
     a6 = (RooRealVar*)wspace_sigA->var("a6");
-    fl->setRange(-10,10);// unbounded fl
-    fl->setVal(0.6);
-    a6->setRange(-10,10);// unbounded afb
-    a6->setVal(0.9);
+    fl->setRange(-100,100);// unbounded fl
+    ////////////////fl->setVal(0.6);
+    fl->setConstant(kFALSE);
+    a6->setRange(-100,100);// unbounded afb
+    ///////////////a6->setVal(0.9);
+    a6->setConstant(kFALSE);
   }else{
     printf("ERROR\t\t: Please have wspace_sigA_bin?.root prepared.\n");
     return;
@@ -2612,7 +2677,12 @@ void angular2D_bin(int iBin, const char outfile[] = "angular2D")
   // Get data and apply unbinned fit
   int mumuMassWindowBin = 1+2*isCDFcut;
   if (isCDFcut < 0) mumuMassWindowBin=0;
-  RooDataSet *data = new RooDataSet("data", "data", ch, RooArgSet(Q2, Bmass, Mumumass, Mumumasserr, CosThetaK, CosThetaL, Triggers),TString::Format("(%s) && (%s) && (%s)", nTriggeredPath[2], q2range[iBin], mumuMassWindow[mumuMassWindowBin]), 0);
+  RooDataSet *data = new RooDataSet("data", "data", ch, RooArgSet(Q2, Bmass, Phimass, Mumumass, Mumumasserr, CosThetaK, CosThetaL, Triggers),TString::Format("(%s) && (%s) && (%s) && (%s)", nTriggeredPath[2], q2range[iBin], phiMassWindow[1], mumuMassWindow[mumuMassWindowBin]), 0);
+  if (data->sumEntries() == 0){
+    return;
+  }
+  printf("@@@@@ RooDataset formed\n");
+
 
   // Fitting procedure in TMinuit
   double isMigradConverge[2] = {-1,0};
@@ -2650,7 +2720,10 @@ void angular2D_bin(int iBin, const char outfile[] = "angular2D")
     
   RooPlot* framecosk = CosThetaK.frame(); 
   data->plotOn(framecosk,Binning(20)); 
-  f_ext.plotOn(framecosk); 
+  f_ext.plotOn(framecosk);
+
+
+  /* 
   if (false) { // Draw dashed line using generator level values
     double buffFl = fl->getVal();
     double buffA6 = a6->getVal();
@@ -2658,15 +2731,20 @@ void angular2D_bin(int iBin, const char outfile[] = "angular2D")
     f_ext.plotOn(framecosk, LineColor(2),LineWidth(2),LineStyle(2)); 
     fl->setVal(buffFl); a6->setVal(buffA6);
   }
+  */
   framecosk->SetTitle("");
   framecosk->SetMinimum(0);
   framecosk->Draw();
 
   double fixNDC = 0;
   if (iBin > 3) fixNDC = -0.5;
+
+  ////// MODIFY ??
   double fl_bdd[3] = {toBoundedFl(fl->getVal()),toBoundedFl(fl->getVal()+fl->getErrorHi()),toBoundedFl(fl->getVal()+fl->getErrorLo())};
   fl_bdd[1] -= fl_bdd[0];
   fl_bdd[2] -= fl_bdd[0];
+
+  ///// MODIFY ??
   double a6_bdd[3] = {toBoundedA6(a6->getVal(),fl->getVal()),toBoundedA6(a6->getVal()+a6->getErrorHi(),fl->getVal()),toBoundedA6(a6->getVal()+a6->getErrorLo(),fl->getVal())};
   a6_bdd[1] -= a6_bdd[0];
   a6_bdd[2] -= a6_bdd[0];
@@ -3054,7 +3132,7 @@ int main(int argc, char** argv) {
 
     }else if (func == "accXrecoEff"){
       // For experts only. Set to true if no given acceptance_13TeV.root and modify the input filepath in the funciton.
-      if (false) createAcceptanceHist();
+      if (true) createAcceptanceHist();
       ch->Add(infile.Data());
       printListOfTChainElements(ch);
       if (ch == NULL) return 1;
@@ -3095,7 +3173,8 @@ int main(int argc, char** argv) {
       int nTempWorkBins = 7;
       int tempWorkBins[] = {0,1,3,5,6,7,8};
       for (int iBin = 0; iBin < nTempWorkBins; iBin++) {
-	createRecoEffHist(tempWorkBins[iBin]);
+	/////createRecoEffHist(tempWorkBins[iBin]);
+	angular2D_bin(iBin);
       }
     }else{ 
       cerr << "No function available for: " << func.Data() << endl; 
