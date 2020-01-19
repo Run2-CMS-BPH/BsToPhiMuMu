@@ -100,6 +100,7 @@ double  gendimuPt    = 0;
 double  gendimuEta   = 0;
 double  gendimuPhi   = 0;
 
+double  genMumumass  = 0;
 double  genQ2        = 0;
 double  genCosThetaL = 999;
 double  genCosThetaK = 999;
@@ -162,6 +163,7 @@ void ClearEvent()
   gendimuEta     = 0;
   gendimuPhi     = 0;
 
+  genMumumass    = 0;
   genQ2          = 0;
   genCosThetaL   = 999;
   genCosThetaK   = 999;
@@ -277,6 +279,7 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
      tree_->Branch("gendimuEta"   , &gendimuEta   , "gendimuEta/D");
      tree_->Branch("gendimuPhi"   , &gendimuPhi   , "gendimuPhi/D");
 
+     tree_->Branch("genMumumass"  , &genMumumass  , "genMumumass/D");
      tree_->Branch("genQ2"        , &genQ2        , "genQ2/D");
      tree_->Branch("genCosThetaL" , &genCosThetaL , "genCosThetaL/D");
      tree_->Branch("genCosThetaK" , &genCosThetaK , "genCosThetaK/D");
@@ -306,6 +309,7 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
      tree_->Branch("genKmPt"     , &genKmPt     , "genKmPt/D");
      tree_->Branch("genKmEta"    , &genKmEta    , "genKmEta/D");
      tree_->Branch("genKmPhi"    , &genKmPhi    , "genKmPhi/D");
+     tree_->Branch("genMumumass"  , &genMumumass  , "genMumumass/D");
      tree_->Branch("genQ2"        , &genQ2        , "genQ2/D");
      tree_->Branch("genCosThetaL" , &genCosThetaL , "genCosThetaL/D");
      tree_->Branch("genCosThetaK" , &genCosThetaK , "genCosThetaK/D");
@@ -592,6 +596,7 @@ void SingleBsToPhiMuMuSelector::SaveGen()
   genMumEta    = genMum_4vec.Eta();
   genMumPhi    = genMum_4vec.Phi();
 
+  genMumumass  = (genMup_4vec+genMum_4vec).Mag();
   genQ2        = (genMup_4vec+genMum_4vec).Mag2();
     
   buff1        = genB_4vec;
