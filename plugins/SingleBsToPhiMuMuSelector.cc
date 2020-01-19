@@ -433,6 +433,8 @@ int SingleBsToPhiMuMuSelector::SelectB(string cut)
 
     for (int i = 0; i< nb; i++) {
 
+      n_total_++;
+
       if ( ! HasGoodDimuon(i) ) continue;
       n_passMuonID_++;
 
@@ -448,6 +450,9 @@ int SingleBsToPhiMuMuSelector::SelectB(string cut)
 
   }else if (cut == "nocut") {
     for (int i = 0; i < nb; i++) {
+
+      n_total_++;
+
       if (bvtxcl->at(i) > best_bvtxcl) {
 	best_bvtxcl = bvtxcl->at(i);
 	n_passBestB_++; 
