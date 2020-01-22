@@ -1,7 +1,7 @@
 //----------------------------------------------
 // SELECTOR CODE FOR BSTOPHIMUMU ANALYSIS 
 // @author: N.Sahoo, NISER, BHUBANESWAR
-//@author: D.K.Sahoo, IIT, BHUBANESWAR
+// @author: D.K.Sahoo, IIT, BHUBANESWAR
 // to do: add phi momentum info to the analyzer
 // 2017-07-11: added phi angle info 
 // 2018-03-02: (a) commented out the extra print statements, (b) added trigger efficiency print statements
@@ -24,6 +24,9 @@
 #include <string.h>
 #include <TLorentzVector.h>
 #include <TVector3.h>
+#include <algorithm>
+#include <vector>
+#include <iterator>
 
 //-------------------
 // Global Constants
@@ -43,6 +46,8 @@ int n_triggers0, n_triggers1;
 int n_total_, n_passMuonID_, n_passSelCut_, n_passBestB_; 
 
 TTree *tree_; 
+
+map<string, string> mapTriggerToLastFilter_;
 
 //--------------------------------
 // Branch variables for new tree
@@ -349,7 +354,7 @@ Bool_t SingleBsToPhiMuMuSelector::Process(Long64_t entry)
   Nb = nb; 
 
   if (triggernames->size() == 0) n_triggers0++;
-  if (triggernames->size() == 1) n_triggers1++;
+  if (triggernames->size()  !=0) n_triggers1++;
 
   if (datatype != "data") SaveGen();
 
@@ -565,6 +570,56 @@ void SingleBsToPhiMuMuSelector::SaveEvent(int i)
     Phi = -MuMuPlane.Angle(PhiPlane);
 
   Triggers = triggernames->size();
+
+  if (Triggers == 2) printf("DEBUG: TRIGGERS VALUE FOUND TO BE 2 FOR CANDIDATE %i, BMASS: %.3f & MUMUMASS: %.3f \n", i, Bmass, Mumumass);
+ 
+  /////printf("Triggers: %i\n", Triggers);
+
+  /*
+  ////////////////////////////////////////////////////////////////
+  //// CHECK FOT TRIGGER NAMES AND FILL THE NTUPLE ACCORDINGLY
+  ////////////////////////////////////////////////////////////////
+
+  string LMNRT = "LowMass";
+  string JPSRT = "JpsiTrk";
+  string PSIRT = "PsiPrimeTrk";
+
+  //////int k = triggernames->size();
+  //////cout << k << endl;
+
+
+  ////for (int i = 0; i < k; i++){
+
+    for(vector<string>::iterator it = triggernames->begin();
+	it != triggernames->end(); ++it) {
+      
+      string hltName = mapTriggerToLastFilter_[*it] ;
+
+      if (hltName.find(LMNRT) != std::string::npos){
+	cout << "Fired LMNR Trigger" << endl;
+
+      } else if (hltName.find(JPSRT) != std::string::npos){
+	cout << "Fired JPSi Resonant Trigger" << endl;
+	
+      } else if (hltName.find(JPSRT) != std::string::npos){
+	cout << "Fired PSi' Resonant Trigger" << endl;
+
+      }
+
+
+    }
+
+    //}
+
+    */
+
+
+
+  /////if (std::find(triggernames->begin(), triggernames->end(), "LowMass") != triggernames->end()) printf("INFO: Low Mass Trigger Used \n"); 
+
+  /////if (triggernames->find("LowMass")) printf("INFO: Low Mass Trigger Used \n");
+  ///if (triggernames->find("LowMass") != std::string::npos) printf("INFO: Low Mass Trigger Used \n");
+
 
 }//}}}
 
