@@ -42,7 +42,7 @@ const double KAON_MASS = 0.493677;
 TDatime t_begin_ , t_now_ ;
 int n_processed_, n_selected_; 
 int n_triggers0, n_triggers1;
-
+int n_trig_LMNR, n_trig_JPSI, n_trig_PSIP;
 int n_total_, n_passMuonID_, n_passSelCut_, n_passBestB_; 
 
 TTree *tree_; 
@@ -78,6 +78,9 @@ double CosThetaL      = 999;
 double CosThetaK      = 999;
 double Phi            = 999;
 int    Triggers       = 0;
+int    Trig_LMNR      = 99;
+int    Trig_JPSI      = 99;
+int    Trig_PSIP      = 99;
 
 // Branches for Generator level information
 double  genBpid      = 999;
@@ -140,6 +143,9 @@ void ClearEvent()
   CosThetaK      = 999;
   Phi            = 999;
   Triggers       = 0;
+  Trig_LMNR      = 99;
+  Trig_JPSI      = 99;
+  Trig_PSIP      = 99;
 
   //mc
   genBpid        = 999;
@@ -259,6 +265,9 @@ void SingleBsToPhiMuMuSelector::SlaveBegin(TTree * /*tree*/)
    tree_->Branch("CosThetaK"     , &CosThetaK     , "CosThetaK/D");
    tree_->Branch("Phi"           , &Phi           , "Phi/D");
    tree_->Branch("Triggers"      , &Triggers      , "Triggers/I");
+   tree_->Branch("Trig_LMNR"     , &Trig_LMNR     , "Trig_LMNR/I");
+   tree_->Branch("Trig_JPSI"     , &Trig_JPSI     , "Trig_JPSI/I");
+   tree_->Branch("Trig_PSIP"     , &Trig_PSIP     , "Trig_PSIP/I");
 
    string datatype = get_option_value(option, "datatype");
    std::map<string,int> maptype;
@@ -401,10 +410,13 @@ void SingleBsToPhiMuMuSelector::Terminate()
   printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
   printf("Triggers0 : %i\n", n_triggers0);
   printf("Triggers1 : %i\n", n_triggers1);
+  printf("n_trig_LMNR: %i\n", n_trig_LMNR);
+  printf("n_trig_JPSI: %i\n", n_trig_JPSI);
+  printf("n_trig_PSIP: %i\n", n_trig_PSIP);
   printf("total events = %i\n", n_total_);
-  printf("#evts passsing muonID = %i\n", n_passMuonID_);
-  printf("muonID efficiency = %i/%i = %.2f % \n", n_passMuonID_, n_total_, 100*float(n_passMuonID_)/float(n_total_));
-  printf("#evts passing selection cuts = %i\n", n_passSelCut_);
+  //////printf("#evts passsing muonID = %i\n", n_passMuonID_);
+  //////printf("muonID efficiency = %i/%i = %.2f % \n", n_passMuonID_, n_total_, 100*float(n_passMuonID_)/float(n_total_));
+  //////printf("#evts passing selection cuts = %i\n", n_passSelCut_);
   printf("#cands/evt = %i/%i = %.2f %\n", n_passSelCut_, n_total_, 100*float(n_passSelCut_)/float(n_total_));
   printf("#evts passing best B sel = %i\n", n_passBestB_);
   printf("sel. efficiency = %i/%i = %.2f % \n", n_selected_, n_processed_, 100*float(n_selected_)/float(n_processed_));
@@ -575,50 +587,46 @@ void SingleBsToPhiMuMuSelector::SaveEvent(int i)
  
   /////printf("Triggers: %i\n", Triggers);
 
-  /*
+
   ////////////////////////////////////////////////////////////////
-  //// CHECK FOT TRIGGER NAMES AND FILL THE NTUPLE ACCORDINGLY
+  //// CHECK FOR TRIGGER NAMES AND FILL THE NTUPLE ACCORDINGLY
   ////////////////////////////////////////////////////////////////
 
   string LMNRT = "LowMass";
   string JPSRT = "JpsiTrk";
   string PSIRT = "PsiPrimeTrk";
 
-  //////int k = triggernames->size();
-  //////cout << k << endl;
+  ///int k = triggernames->size();
+  ///cout << "size: " << k << endl;
 
 
-  ////for (int i = 0; i < k; i++){
-
-    for(vector<string>::iterator it = triggernames->begin();
-	it != triggernames->end(); ++it) {
+  for(vector<string>::iterator it = triggernames->begin();
+      it != triggernames->end(); ++it) {
       
-      string hltName = mapTriggerToLastFilter_[*it] ;
 
-      if (hltName.find(LMNRT) != std::string::npos){
-	cout << "Fired LMNR Trigger" << endl;
+    printf("INFO \t HLT path: %s \n",  it->c_str() );
 
-      } else if (hltName.find(JPSRT) != std::string::npos){
-	cout << "Fired JPSi Resonant Trigger" << endl;
-	
-      } else if (hltName.find(JPSRT) != std::string::npos){
-	cout << "Fired PSi' Resonant Trigger" << endl;
+      
+    if (it->find(LMNRT) != std::string::npos){
+      printf("DEBUG: Fired LMNR Trigger \n");
+      Trig_LMNR = 1;
+      n_trig_LMNR++;
 
-      }
+    } else if (it->find(JPSRT) != std::string::npos){
+      printf("DEBUG: Fired JPSi Resonant Trigger \n");
+      Trig_JPSI = 1;      
+      n_trig_JPSI++;
 
+    } else if (it->find(PSIRT) != std::string::npos){
+      printf("DEBUG: Fired PSi' Resonant Trigger \n");
+      Trig_PSIP = 1;
+      n_trig_PSIP++;
 
     }
 
-    //}
+      
+  }
 
-    */
-
-
-
-  /////if (std::find(triggernames->begin(), triggernames->end(), "LowMass") != triggernames->end()) printf("INFO: Low Mass Trigger Used \n"); 
-
-  /////if (triggernames->find("LowMass")) printf("INFO: Low Mass Trigger Used \n");
-  ///if (triggernames->find("LowMass") != std::string::npos) printf("INFO: Low Mass Trigger Used \n");
 
 
 }//}}}
